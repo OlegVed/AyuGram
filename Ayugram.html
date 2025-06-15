@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyuGram</title>
+    <link rel="stylesheet" href="../Faq и Ayugram/">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #6A1DB9;
+            --primary-light: #9B59B6;
+            --secondary: #4B0082;
+            --accent: #DA70D6;
+            --neon: #ff00ff;
+            --text: #333;
+            --light: #F5F5F5;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            background-color: #1a0529;
+            color: var(--light);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(26, 5, 41, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            animation: fadeDown 1s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            animation: slideInLeft 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, #b06ab3, #f4c4f3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #d9c5e6;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--accent);
+        }
+
+        .hero-image-container {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45%;
+            max-width: 600px;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Неоновая подсветка */
+        .neon-border {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 30px;
+            background: var(--neon);
+            filter: blur(20px);
+            opacity: 0.7;
+            z-index: 1;
+            animation: neonPulse 3s infinite alternate;
+        }
+
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 30px;
+            background: var(--neon);
+            filter: blur(40px);
+            opacity: 0.4;
+            z-index: 1;
+            animation: neonPulse 4s infinite alternate-reverse;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            background: rgba(26, 5, 41, 0.7);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 5rem;
+            background: linear-gradient(to right, #c77dff, #e0aaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(74, 20, 114, 0.25);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 0.6s forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
+        .feature-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.2);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #e0aaff;
+        }
+
+        .feature-card p {
+            color: #c77dff;
+            line-height: 1.6;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 8rem 5%;
+            text-align: center;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(74, 20, 114, 0.25);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+        }
+
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #d9c5e6;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #e0aaff;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 2, 26, 0.95);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #d9c5e6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(138, 43, 226, 0.2);
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(138, 43, 226, 0.2);
+            color: #9B59B6;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-50%) translateX(0);
+            }
+            50% {
+                transform: translateY(-53%) translateX(10px);
+            }
+            100% {
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Неоновая пульсация */
+        @keyframes neonPulse {
+            0% {
+                opacity: 0.5;
+                box-shadow: 0 0 10px var(--neon), 
+                            0 0 20px var(--neon), 
+                            0 0 30px var(--neon);
+            }
+            100% {
+                opacity: 0.9;
+                box-shadow: 0 0 20px var(--neon), 
+                            0 0 40px var(--neon), 
+                            0 0 60px var(--neon);
+            }
+        }
+
+        /* Фиолетовая неоновая подсветка */
+        .neon-border {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 30px;
+            background: var(--neon-primary);
+            filter: blur(25px);
+            opacity: 0.8;
+            z-index: 1;
+            animation: neonPulse 3s infinite alternate;
+        }
+
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 30px;
+            background: var(--neon-secondary);
+            filter: blur(45px);
+            opacity: 0.6;
+            z-index: 1;
+            animation: neonPulse 4s infinite alternate-reverse;
+        }
+
+        /* Particles Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary-light);
+            opacity: 0.3;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 3rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image-container {
+                position: relative;
+                width: 80%;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin: 0 auto;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo">
+        <img src="Ayulogo2.png"
+            <span>AyuGram</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="https://t.me/ayugram">Главная</a></li>
+                <li><a href="https://t.me/AyuGramFAQ/6">Возможности</a></li>
+                <li><a href="https://t.me/ayugramchat/1273">Отзывы</a></li>
+                <li><a href="https://t.me/AyuGramReleases">Загрузка</a></li>
+                <li><a href="https://t.me/ayutyan_bot">Поддержка</a></li>
+            </ul>
+        </nav>
+        <button class="btn"><i class="https://t.me/AyuGramReleases"></i>Начать сейчас</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AyuGram</h1>
+            <p>Итак, начнём с названия, правильно AyuGrám [аюгрáм]. Почему такое странное название?
+Ayu — симпатичный, Gram — базовый суффикс у всех тг-клиентов.
+Если дословно, «симпатичный телеграм».
+
+AyuGram — продвинутый клиент и/или форк exteraGram и никак более (не мод и другие коверкание названия, это наказуемо), содержит функционал, который частично нарушает ToS разработчика Telegram (https://core.telegram.org/api/terms#1-privacy-amp-security) и на который придётся потратить время для его изучения.
+
+Для начала договоримся о том, что AyuGram — это клиент или форк, не более. Не рекомендуется в нашем чате искажать название клиента, даже в шутку. Это недопустимо, или последует наказание.</p>
+            <div class="hero-buttons">
+                
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <div class="neon-border"></div>
+            <img src="D:\3 Easy Code\bootstrap\Faq и Ayugram\v_etom_kliente_telegram_net_reklamy_halyavnyj_premium_i_rezhim_prizraka.png" alt="Ayugram App" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Преимущества AyuGram</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-lock feature-icon"></i>
+                <h3>Режим призрака</h3>
+                <p>Режим призрака позволяет частично скрывать вашу активность.
+                    Ситуации когда ваш онлайн обновляется в режиме призрака: 0.  Итак, чтобы быть постоянно в офлайне, необходимо включить все пункты призрака (5/5) и «Использовать отложку».</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt feature-icon"></i>
+                <h3>Локальный премиум</h3>
+                <p>Локальный премиум на то и локальный, что премиум у себя видите только вы сами, и только в АЮГРАМ.
+Локальный значит фейковый, фейковый значит ненастоящий!
+Эмодзи статус и цвета реплаев сохраняются только на Android. На ПК не работает — и это не баг.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-cloud feature-icon"></i>
+                <h3>Сохранение сообщений</h3>
+                <p>Даёт возможность просматривать удалённые сообщения в реальном времени</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-robot feature-icon"></i>
+                <h3>Подглядеть онлайн</h3>
+                <p>Замена функции из Telegram Premium, предоставляя узнать онлайн у других, если он скрыт у ВАС. 
+ЕСЛИ НИЧЕГО НЕ ВЫВЕЛОСЬ — ЗНАЧИТ У ПОЛЬЗОВАТЕЛЯ СКРЫТ ОНЛАЙН И НИКАК НЕЛЬЗЯ УЗНАТЬ!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="section-title">Что Говорят Пользователи</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <img src="D:\3 Easy Code\bootstrap\Faq и Ayugram\Artem.jpg" alt="User">
+                <p class="testimonial-text">"Ayugram спас мою жизнь. Теперь могу сидет ночью не палясь что не спал"</p>
+                <p class="testimonial-author">- Артём</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="D:\3 Easy Code\bootstrap\Faq и Ayugram\Oleh.jpg" alt="Developer">
+                <p class="testimonial-text">"Лучший клиент за свой функционал рекомендую. Вирусов нет"</p>
+                <p class="testimonial-author">- Олег</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="D:\3 Easy Code\bootstrap\Faq и Ayugram\AyugramHakoGround.jpg" alt="User">
+                <p class="testimonial-text">"Лучший клиент правда не знаем как скачать на ios."</p>
+                <p class="testimonial-author">- Весь форум</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AyuGram</h3>
+                <p>Современный мессенджер для безопасного и комфортного общения.</p>
+                <div class="social-icons">
+                    <a href="https://t.me/ayugram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://t.me/ayugram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://t.me/ayugram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://t.me/ayugram"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Продукт</h3>
+                <ul class="footer-links">
+                    <li><a href="https://t.me/AyuGramFAQ/5">Возможности</a></li>
+                    <li><a href="https://t.me/AyuGramFAQ/8">Безопасность</a></li>
+                    <li><a href="https://t.me/ayugramfun">Для бизнеса</a></li>
+                    <li><a href="https://t.me/AyuGramReleases">Скачать</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Компания</h3>
+                <ul class="footer-links">
+                    <li><a href="https://t.me/AyuGramFAQ/5">О нас</a></li>
+                    <li><a href="https://t.me/ayugramfun">Блог</a></li>
+                    <li><a href="https://t.me/fuckingAyuGram">Карьера</a></li>
+                    <li><a href="https://t.me/alexeyzavar">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Поддержка</h3>
+                <ul class="footer-links">
+                    <li><a href="https://t.me/ayutyan_bot">Центр помощи</a></li>
+                    <li><a href="https://t.me/ayugramchat">Сообщество</a></li>
+                    <li><a href="https://t.me/AyuGramFAQ">FAQ</a></li>
+                    <li><a href="https://t.me/alexeyzavar">Связаться с нами</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 AyuGram. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random color
+                const colors = ['#8A2BE2', '#9B59B6', '#DA70D6', '#4B0082'];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random animation duration
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize animations on scroll
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.feature-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initScrollAnimations();
+            
+            // Button hover effect
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'translateY(-3px)';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
